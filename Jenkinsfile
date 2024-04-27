@@ -4,32 +4,32 @@ pipeline {
         maven 'maven-3'
     }
     stages {
-       when {
-            not {
-                changelog '.*^\\[ci skip\\] .+$'
-            }
-        }
         stage('Clean') {
+            when {
+                not {
+                    changelog '.*^\\[ci skip\\] .+$'
+                }
+            }
             steps {
                cleanWs()
             }
         }
-        when {
-            not {
-                changelog '.*^\\[ci skip\\] .+$'
-            }
-        }
         stage('Checkout') {
+            when {
+                not {
+                    changelog '.*^\\[ci skip\\] .+$'
+                }
+            }
             steps {
                 git branch: 'main', url: 'https://github.com/tolemi/szkolenie-ci-jenkins-example'
             }
         }
-        when {
-            not {
-                changelog '.*^\\[ci skip\\] .+$'
-            }
-        }
         stage('Build') {
+            when {
+                not {
+                    changelog '.*^\\[ci skip\\] .+$'
+                }
+            }
             steps {
                 sh 'mvn clean verify'
             }
