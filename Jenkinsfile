@@ -5,31 +5,32 @@ pipeline {
     }
     stages {
         stage('Clean') {
-            when {
-                not {
-                    changelog '.*^\\[ci skip\\] .+$'
-                }
+//            when {
+//                not {
+//                    changelog '.*^\\[ci skip\\] .+$'
+//                }
             }
             steps {
-               cleanWs()
+                scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
+                cleanWs()
             }
         }
         stage('Checkout') {
-            when {
-                not {
-                    changelog '.*^\\[ci skip\\] .+$'
-                }
-            }
+//            when {
+//                not {
+//                    changelog '.*^\\[ci skip\\] .+$'
+//                }
+//            }
             steps {
                 git branch: 'main', url: 'https://github.com/tolemi/szkolenie-ci-jenkins-example'
             }
         }
         stage('Build') {
-            when {
-                not {
-                    changelog '.*^\\[ci skip\\] .+$'
-                }
-            }
+//            when {
+//                not {
+//                    changelog '.*^\\[ci skip\\] .+$'
+//                }
+//            }
             steps {
                 sh 'mvn clean verify'
             }
